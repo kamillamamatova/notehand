@@ -10,7 +10,7 @@ NUM_COLS = 10
 MARGIN = 5 # To not accidently crop a letter
 
 # Loads the scanned template
-template_path = "handwritten_template.jpg"
+template_path = "segmentation/handwritten_template.jpg"
 img = cv2.imread(template_path, cv2.IMREAD_GRAYSCALE)
 if img is None:
     raise FileNotFoundError(f"Could not load {template_path}")
