@@ -22,7 +22,7 @@ cell_width = width // NUM_COLS
 cell_height = height // NUM_ROWS
 
 # Creates output folder if it doesn't exist
-output_folder = "glyph_images" # Each cropped letter will be saved here
+output_folder = "segmentation/glyph_images" # Each cropped letter will be saved here
 os.makedirs(output_folder, exist_ok = True)
 
 # Loops over columns/rows to crop each glyph
