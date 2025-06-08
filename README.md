@@ -33,7 +33,7 @@ We applied the CIRCLE framework to deliver a polished MVP and roadmap:
 
 ---
 
-## 🚀 Pipeline & Key Achievements
+## Pipeline & Key Achievements
 
 1. **Segmentation**  
    • Cropped a 7×10 grid into 70 binary PNGs via OpenCV—reduced manual effort from hours to seconds.  
