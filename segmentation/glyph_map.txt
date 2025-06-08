@@ -1,6 +1,6 @@
 glyph_00.png U+0041 A
 glyph_01.png U+0042 B
-glyph_02.png U+0042 C
+glyph_02.png U+0043 C
 glyph_03.png U+0044 D
 glyph_04.png U+0045 E
 glyph_05.png U+0046 F
@@ -70,7 +70,7 @@ glyph_62.png U+002E .
 glyph_63.png U+002C ,
 glyph_64.png U+003F ?
 glyph_65.png U+0021 !
-glyph_66.png U+0027 ’
-glyph_67.png U+0022 “
+glyph_66.png U+0027 '
+glyph_67.png U+0022 "
 glyph_68.png U+0028 (
 glyph_69.png U+0029 )
