@@ -53,7 +53,7 @@ ls rendering/transcripts/
 # short.txt  medium.txt  long.txt
 ```
 
-##Tech Stack
+## Tech Stack
 
 - Languages: Python
 - CV: OpenCV
