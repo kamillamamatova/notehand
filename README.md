@@ -1,84 +1,79 @@
 # Handwritten Notes Generator
 
-## Project Purpose:
-Allow users to upload samples of their own handwritting (photos or scans) and instantly generate letters, notes, or any document in that exactly handwriting style, so the final output looks like genuine pen-on-paper with no extra manual effort.
+**Turn any transcript into “your” handwriting**—no manual tracing required.  
+Built with Python, OpenCV, FontForge & Pillow.
 
-This repository provides a pipeline to turn a scanned page of your own handwriting into a fully functional TrueType font, and then render arbitrary plain-text transcripts in your own handwriting style. The main stages are:
+---
 
-### 1. Segmentation (Crop your handwriting)
-- Input: a 7×10 grid image (handwriting_template.jpg) where each box contains one handwritten character.
-- Process: segment_glyphs.py crops that image into 70 individual binary PNGs (glyph_00.png … glyph_69.png).
-- Output: segmentation/glyph_images/ with all the single-letter images.
+## Project Framework: CIRCLE
 
-### 2. Font Assembly (Build a .ttf from those images)
-- Input: those 70 PNGs plus glyph_map.txt (which tells FontForge which PNG belongs to which Unicode codepoint).
-- Process: build_font.py (a FontForge script) reads each glyph_XX.png, converts it into a vector outline, assigns it to the proper codepoint (A–Z, a–z, 0–9, punctuation), auto-hints, and sets side-bearings.
-- Output: font_build/fonts/MyHandwriting.ttf, a TrueType font file that contains your actual handwriting as glyphs.
+We applied the CIRCLE framework to deliver a polished MVP and roadmap:
 
-### 3. Rendering (Typeset any text in your handwriting)
-- Input: your new MyHandwriting.ttf plus any plain-text file (like short.txt, medium.txt, long.txt).
-- Process: render_handwritten_notes.py loads the TTF, reads the transcript, wraps lines, preserves paragraph breaks, and draws each character onto a blank page using Pillow.
-- Output: PNG(s) or a multi-page PDF under rendering/output/ that looks like someone literally wrote the entire transcript by hand.
+1. **Comprehend**  
+   Translate plain-text into lifelike handwriting, preserving stroke & slant.  
+2. **Identify**  
+   Users: students, professionals, anyone wanting digital notes that feel personal.  
+3. **Report**  
+   Needs: easy sample upload, accurate style capture, flexible PNG/PDF export, privacy.  
+4. **Cut**  
+   **MVP**: segmentation → font → single-page render  
+   **Next**: multi-page, web UI  
+   **Later**: stroke-variation RNN, extended symbols  
+5. **List**  
+   - Font-based (fast, predictable)  
+   - Stroke-synthesis (natural, complex)  
+   - Hybrid  
+6. **Evaluate**  
 
-Putting those steps in order—“scan → crop → build font → render text”—constitutes our pipeline. Each step feeds its output into the next, until you end up with a fully handwritten-style document.
+| Approach             | Accuracy | Speed   | Complexity | Privacy          |
+|----------------------|:--------:|:-------:|:----------:|------------------|
+| **Font-based**       | Medium   | Fast    | Low–Med    | Local PNG/TTF    |
+| **Stroke-synthesis** | High     | Slower  | High       | Raw stroke data  |
+| **Hybrid**           | High     | Medium  | High       | Mixed            |
 
-## CIRCLE Framework
+---
 
-To ensure we build the Handwritten Notes Generator in the right way, we follow the **CIRCLE** framework:
+## 🚀 Pipeline & Key Achievements
 
-1. **Comprehend the situation**  
-   We need to turn a plain‐text transcript into a lifelike reproduction of a user’s own handwriting, preserving stroke, slant, and spacing.
+1. **Segmentation**  
+   • Cropped a 7×10 grid into 70 binary PNGs via OpenCV—reduced manual effort from hours to seconds.  
+2. **Font Assembly**  
+   • Automated glyph import into a TrueType font with FontForge; delivered MyHandwriting.ttf.  
+3. **Rendering**  
+   • Typeset any transcript into PNG/PDF with Pillow; preserved line breaks & margins.  
 
-2. **Identify the customer**  
-   - Students who want digital study notes that look handwritten  
-   - Professionals sending personalized memos or letters  
-   - Anyone seeking a bespoke “handwritten” touch for digital text
+---
 
-3. **Report customer needs**  
-   - **Easy sample collection:** Upload a blank template filled with their handwriting  
-   - **Accurate style capture:** Extract glyph shapes, margins, and stroke thickness  
-   - **Flexible output:** Export as PNG or multi-page PDF  
-   - **Privacy:** Samples and outputs processed locally or securely
+## 📂 Sample Transcripts  
 
-4. **Cut through prioritization**  
-   - **MVP:**  
-     1. Segment glyphs → generate TTF “font”  
-     2. Render transcript with that TTF → single-page PNG/PDF  
-   - **Next:**  
-     - Multi-page support  
-     - User-friendly CLI/web UI  
-   - **Later:**  
-     - Stroke-variation (RNN/GAN) for natural jitter  
-     - Extended symbols & languages
+Ready for Phase 3 testing—short (120 w), medium (350 w), long (925 w) with edge cases.  
 
-5. **List solutions**  
-   - **Font-based:** Crop & import glyphs → TrueType font → typeset via Pillow/ReportLab  
-   - **Stroke-synthesis:** Train an RNN to generate each stroke sequence on the fly  
-   - **Hybrid:** Use font for base shapes + small random offsets per character
+```bash
+ls rendering/transcripts/
+# short.txt  medium.txt  long.txt
 
-6. **Evaluate trade-offs**  
+##Tech Stack
 
-| Approach               | Accuracy | Speed     | Complexity | Privacy implications       |
-|------------------------|:--------:|:---------:|:----------:|----------------------------|
-| **Font-based**         | Medium   | Fast      | Low–Med    | Samples stored as PNG/TTF  |
-| **Stroke-synthesis**   | High     | Slower    | High       | Requires raw stroke data   |
-| **Hybrid**             | High     | Medium    | High       | Mix of both storage types  |
+- Languages: Python
+- CV: OpenCV
+- Font: FontForge (Python API)
+- Rendering: Pillow, ReportLab
+- Future: Flask web UI, Docker
 
-By following **CIRCLE**, we stay focused on the user’s real needs and deliver the core feature set in the right order.  
+## How to Run
 
+1. **Segment:**
+    ```bash
+    cd segmentation
+    python3 segment_glyphs.py
+2. **Build font:**
+    ```bash
+    cd ../font_build
+    fontforge -script build_font.py
+3. **Render**
+    ```bash
+    cd ../rendering
+    python3 render_handwritten_notes.py transcripts/short.txt
 
-## Sample Transcripts
-
-Located under rendering/transcripts/:
-
-short.txt (~120 words; includes a long unbroken string)
-
-medium.txt (~350 words; contains hyphens, blank lines, bullets)
-
-long.txt (>800 words; multi-section, long strings, blank lines)
-
-These are provided to test rendering as soon as Phase 2 is complete.
-
-## Author & Credits
-Created and maintained by Kamilla Mamatova and Diab Ali
-If you found this helpful, feel free to star the repo and share!
+## Authors and Credits
+Created and maintained by Kamilla Mamatova and Diab Ali If you found this helpful, feel free to star the repo and share!
