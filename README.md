@@ -51,6 +51,7 @@ Ready for Phase 3 testing—short (120 w), medium (350 w), long (925 w) with edg
 ```bash
 ls rendering/transcripts/
 # short.txt  medium.txt  long.txt
+```
 
 ##Tech Stack
 
@@ -66,14 +67,17 @@ ls rendering/transcripts/
     ```bash
     cd segmentation
     python3 segment_glyphs.py
+    ```
 2. **Build font:**
     ```bash
     cd ../font_build
     fontforge -script build_font.py
+    ```
 3. **Render**
     ```bash
     cd ../rendering
     python3 render_handwritten_notes.py transcripts/short.txt
+    ```
 
 ## Authors and Credits
 Created and maintained by Kamilla Mamatova and Diab Ali If you found this helpful, feel free to star the repo and share!
