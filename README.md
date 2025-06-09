@@ -44,7 +44,7 @@ We applied the CIRCLE framework to deliver a polished MVP and roadmap:
 
 ---
 
-## 📂 Sample Transcripts  
+## Sample Transcripts  
 
 Ready for Phase 3 testing—short (120 w), medium (350 w), long (925 w) with edge cases.  
 
