@@ -1,0 +1,55 @@
+<!--- Declares HTMLS document type -->
+<!DOCTYPE html>
+
+<!-- Root element of the page -->
+ <html>
+
+ <head>
+    <!--- Ensures correct character encoding -->
+    <meta charset = "UTF-8">
+
+    <!-- Text is shown on the browser tab -->
+     <title> Handwritten Notes UI</title>
+ </head>
+
+ <body>
+    <h1> Uploading Handwriting Sample</h1>
+
+    <form 
+        action = "/upload_template"
+        method = "post"
+        enctype = "multipart/form-data"
+    >
+
+        <input 
+            type = "file"
+            name = "template"
+            accept = "image/*"
+            required
+        >
+
+        <!-- Triggers form submission -->
+        <button type = "submit"></button>
+    </form>
+
+    <h1>Upload Transcript</h1>
+
+    <form 
+        action = "/upload_transcript"
+        method = "post"
+        enctype = "multipart/form-data"
+    >
+
+        <input
+            type = "file"
+            name = "transcript"
+            accept = ".txt"
+            required
+        >
+
+        <!-- Triggers transcript upload -->
+         <button type = "submit">Render</button>
+    </form>
+ </body>
+ 
+ </html>
