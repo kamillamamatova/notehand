@@ -3,7 +3,7 @@
 # url_for is to generate URLs for the application
 # send_file is to send files to the user
 # render_template is to render HTML templates for the web interface
-from flask import Flask, request, redirect, url_for, send_file, render_template
+from flask import Flask, request, redirect, url_for, send_file, render_template, send_from_directory
 
 # os is for file system operations
 # subprocess is to invoke our segmentation/font/render scripts
@@ -36,7 +36,10 @@ def upload_template():
     f.save(path)
 
     # Invokes our segmentation script to crop that image
-    # TODO: subprocess.run(["python3", "../segmentation/segment_glyphs.py"])
+    subprocess.run([
+        "python3",
+        "../segmentation/segment_glyphs.py",
+    ], check = True, cwd = "segmentation")
 
     # Sends the user back to the home page after upload
     return redirect(url_for("index"))
@@ -57,3 +60,14 @@ def upload_transcript():
 
     # Returns the generated pdf
     return send_file("TODO_OUTPUT_PATH")
+
+@app.route("/glyph_images/<filename>")
+def glyph_image(filename):
+    # Sends the requested glyph image from the glyph_images directory
+    return send_from_directory("segmentation/glyph_images", filename)
+
+@app.route("/preview")
+def show_preview():
+    # List all the generated glyph PNGs
+    files = sorted(os.listdir("segmentation/glyph_images"))
+    return render_template("preview.html", files = files)
