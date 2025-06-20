@@ -1,0 +1,28 @@
+/* Maximizes readability */
+body{
+    background-color: #084326;
+    color: #ffffff;
+    padding-top: 2rem;
+}
+
+/* Centers the forms and constrain width */
+.container{
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Spaces out headings and forms */
+h1{
+    margin-top: 1.5rem;
+    margin: 0 auto;
+}
+
+/* Tweaks buttons for consistency */
+.btn-custom{
+    background-color: #f3e3b7;
+    color: #052813;
+}
+
+.btn-custom:hover{
+    background-color: #f3e3b7;
+}
