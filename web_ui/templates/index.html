@@ -10,65 +10,75 @@
 
     <!-- Text is shown on the browser tab -->
      <title> Handwritten Notes UI</title>
+
+    <!-- CSS -->
+    <link
+        rel = "stylesheet"
+        href = "{{ url_for('static', filename = 'css/style.css') }}">
  </head>
 
 <!-- js -->
 <script src = "{{ url_for('static', filename = 'js/app.js')}}"></script>
 
- <body>
-    <h1> Uploading Handwriting Sample</h1>
+<!-- CSS -->
+<script src = "{{ url_for('static', filename = 'css/style.css')}}"></script>
 
-    <form 
-        action = "/upload_template"
-        method = "post"
-        enctype = "multipart/form-data"
-    >
+<body>
+    <div class = "container">
+        <h1> Uploading Handwriting Sample</h1>
 
-        <input 
-            type = "file"
-            name = "template"
-            accept = "image/*"
-            required
+        <form 
+            action = "/upload_template"
+            method = "post"
+            enctype = "multipart/form-data"
         >
 
-        <!-- Triggers form submission -->
-        <button 
-            id = "segment-btn"
-            class = "btn-custom"
-            tupe = "submit"
-            >Segment
-        </button>
+            <input 
+                type = "file"
+                name = "template"
+                accept = "image/*"
+                required
+            >
 
-        <!-- Preview for filename and thumbnail -->
-        <div id = "template-preview"></div>
-    </form>
+            <!-- Triggers form submission -->
+            <button 
+                id = "segment-btn"
+                class = "btn-custom"
+                type = "submit"
+                >Segment
+            </button>
 
-    <h1>Upload Transcript</h1>
+            <!-- Preview for filename and thumbnail -->
+            <div id = "template-preview"></div>
+        </form>
 
-    <form 
-        action = "/upload_transcript"
-        method = "post"
-        enctype = "multipart/form-data"
-    >
+        <h1>Upload Transcript</h1>
 
-        <input
-            type = "file"
-            name = "transcript"
-            accept = ".txt"
-            required
+        <form 
+            action = "/upload_transcript"
+            method = "post"
+            enctype = "multipart/form-data"
         >
 
-        <!-- Triggers transcript upload -->
-        <button
-            id = "render-btn" 
-            class = "btn-custom"
-            type = "submit"
-            >Render
-        </button>
+            <input
+                type = "file"
+                name = "transcript"
+                accept = ".txt"
+                required
+            >
 
-        <!-- Preview for transcript filename -->
-        <div id = "transcript-preview"></div>
-    </form>
+            <!-- Triggers transcript upload -->
+            <button
+                id = "render-btn" 
+                class = "btn-custom"
+                type = "submit"
+                >Render
+            </button>
+
+            <!-- Preview for transcript filename -->
+            <div id = "transcript-preview"></div>
+        </form>
+    </div>
  </body>
  
  </html>
