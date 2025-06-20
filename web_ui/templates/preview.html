@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head><title>Glyph Preview</title></head>
+    <body>
+        <h1>Segmented Glyphs</h1>
+        <div style = "display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px;">
+            {% for fname in files %}
+                <img src = "{{ url_for('static', filename = 'uploads/glyph_images/' + fname) }}"
+                    style = "width: 100%;"/>
+            {% endfor %}
+        </div>
+        <a href = "{{ url_for('index') }}">Back</a>
+    </body>
+</html>
