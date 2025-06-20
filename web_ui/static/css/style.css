@@ -26,3 +26,8 @@ h1{
 .btn-custom:hover{
     background-color: #f3e3b7;
 }
+
+.file-name{
+    font-style: italic;
+    font-size: 0.9em;
+}
