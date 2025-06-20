@@ -44,7 +44,7 @@ def upload_template():
     # Sends the user back to the home page after upload
     return redirect(url_for("index"))
 
-@app.route("/build_font", methods = ["POST"])
+@app.route("/upload_transcript", methods = ["POST"])
 def upload_transcript():
     # Grabs the uplaaded file from the form field named "transcript"
     f = request.files("transcript")
@@ -55,8 +55,17 @@ def upload_transcript():
     # Saves the uploaded transcript to disk
     f.save(path)
 
-    # Invokes our font building and rendering script
-    # TODO: build_font.py then render handwritten_notes.py
+    # Builds the font
+    subprocess.run([
+        "fontforge", "-script",
+        "../font_build/build_font.py"
+    ], check = True, cwd = "font_build")
+
+    # Renders the notes
+    subprocess.run([
+        "python3", "render_handwritten_notes.py",
+        os.path.join(UPLOAD_FOLDER, "transcript.txt"),
+    ], check = True, cwd = "rendering")
 
     # Returns the generated pdf
     return send_file("TODO_OUTPUT_PATH")
