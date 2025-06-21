@@ -1,8 +1,17 @@
 /* Maximizes readability */
 body{
-    background-color: #084326;
-    color: #ffffff;
-    padding-top: 2rem;
+    /* notebook paper behind everything */
+    background-image:
+    url('../images/ainotebook.png'),
+    linear-gradient(135deg, #f1dfb4 0%, #f1dfb4 100%);
+  background-repeat: no-repeat, no-repeat;
+  background-position: center top, center;
+  background-size: 200px auto, cover;
+  
+  /* Fallback color if the image fails */
+  background-color: #f1dfb4;
+  color: #000;
+  padding-top: 2rem;
 }
 
 /* Centers the forms and constrain width */
