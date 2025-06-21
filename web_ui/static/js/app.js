@@ -1,56 +1,81 @@
-// Shows the filename next to them when file inputs change
+/* This event listener waits for the entire HTML document to be loaded and parsed before running
+the code inside it. This prevents errors from trying to find elements that haven't been created yet */
 document.addEventListener("DOMContentLoaded", () => {
     // Grabs inputs, buttons, and preview containers
     const templateInput = document.querySelector('input[name = "template"]');
     const txtInput = document.querySelector('input[name = "transcript"]');
+    // Selects the button with id="segment-btn"
     const segBtn = document.querySelector('#segment-btn');
+    // Selects the button with id="render-btn"
     const renderBtn = document.querySelector('#render-btn');
-    const templatePreview = document.querySelector('template-preview');
-    const txtPreview = document.querySelector('transcript-preview');
+    // Selects the div with id="template-preview"
+    const templatePreview = document.querySelector('#template-preview');
+    // Selects the div with id="transcript-preview"
+    const transcriptPreview = document.querySelector('#transcript-preview');
 
-    // Buttons disabled
-    segBtn.disabled = true;
-    renderBtn.disabled = true;
+    // Disable buttons initially
+    if(segBtn) segBtn.disabled = true;
+    if(renderBtn) renderBtn.disabled = true;
 
-    // Enhances the template upload input with filename and live image preview
-    templateInput.addEventListener("change", () => {
-        // Clears any old preview
-        templatePreview.innerHTML = "";
+    // Enhances the template upload input
+    // Only adds the listener if the template input element exists
+    if (templateInput){
+        // 'change' is the event that fires when the user selects a file
+        templateInput.addEventListener("change", () => {
+            // Clears previous preview content
+            templatePreview.innerHTML = "";
 
-        const file = templateInput.files[0];
-        if(!file){
-            segBtn.disabled = true;
-            return;
-        }
+            const file = templateInput.files[0];
 
-        // Shows the filename
-        let nameSpan = templateInput.nextElementSibling;
-        if(!nameSpan || !nameSpan.classList.contains("file-name")){
-            nameSpan = document.createElement("span");
+            // If no file is selected, disable the button and return
+            if(!file){
+                segBtn.disabled = true;
+                return;
+            }
+
+            // Shows filename
+            const nameSpan = document.createElement("span");
+            // Assigns it to a class for styling
             nameSpan.className = "file-name";
-            nameSpan.style.marginLeft = "0.5rem";
-            templateInput.parentNode.insertBefore(nameSpan, templateInput.nextSibling);
-        }
-        nameSpan.textContent = file.name;
+            // Sets the text content to the file name
+            nameSpan.textContent = file.name;
+            // Adds the span to the preview area
+            templatePreview.appendChild(nameSpan);
+            
+            // Shows a live thumbnail
+            const img = document.createElement("img");
+            img.src = URL.createObjectURL(file);
+            // Releases the memory used by the temporary URL once the image is loaded
+            img.onload = () => URL.revokeObjectURL(img.src);
+            // Adds the image to the preview area
+            templatePreview.appendChild(img);
 
-        // Shows a live thumbnail
-        const img = document.createElement("img");
-        img.src = URL.createObjectURL(file);
-        img.onload = () => URL.revokeObjectURL(img.src);
-        img.style.maxWidth = "100%";
-        img.style.marginTop = "1rem";
-        templePrev.appendChild(img);
+            // Enables button
+            segBtn.disabled = false;
+        });
+    }
 
-        // Enables the segment button
-        segBtn.disabled = false;
-    });
+    // Enhances the transcript upload inpit
+    if(txtInput){
+        txtInput.addEventListener("change", () => {
+            // Clears previous preview content
+            transcriptPreview.innerHTML = "";
+            const file = txtInput.files[0];
 
-    // Enhances the transcript upload input with filename display
-    txtInput.addEventListener("change", () => {
-        // Displays filename in its preview container
-        txtPrev.textContent = txtInput.files[0]?.name || "";
+            // If no file is selected, disable the button and return
+            if(!file){
+                renderBtn.disabled = true;
+                return;
+            }
 
-        // Enables the render button if a file is chosen
-        renderBtn.disabled = txtInput.files.length == 0;
-    });
+            // Displays filename
+            const nameSpan = document.createElement("span");
+            nameSpan.className = "file-name";
+            nameSpan.textContent = file.name;
+            transcriptPreview.appendChild(nameSpan);
+
+            // Enables button
+            renderBtn.disabled = false;
+        });
+    }
 });

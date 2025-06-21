@@ -1,42 +1,122 @@
-/* Maximizes readability */
+/* Basic Setup & Background */
 body{
-    /* notebook paper behind everything */
-    background-image:
-    url('../images/ainotebook.png'),
-    linear-gradient(135deg, #f1dfb4 0%, #f1dfb4 100%);
-  background-repeat: no-repeat, no-repeat;
-  background-position: center top, center;
-  background-size: 200px auto, cover;
-  
-  /* Fallback color if the image fails */
-  background-color: #f1dfb4;
-  color: #000;
-  padding-top: 2rem;
+    /* Background image setup */
+    background-image: url("../images/ainotebook.png");
+    /* Scales the image to be as large as possible to fill the background */
+    background-size: cover;
+    background-position: center;
+    /* Makes the image stay in place when the user scrolls */
+    background-attachment: fixed;
+
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+
+    /* Flexbox for centering content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    box-sizing: border-box;
 }
 
-/* Centers the forms and constrain width */
-.container{
+/* Styles the main container that holds the content */
+.paper-container{
+    /* Sligtly transparent white background */
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2.5rem 3rem;
+    /* Rounded corners */
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     max-width: 600px;
-    margin: 0 auto;
+    width: 100%;
+    border: 1px solid #ddd;
 }
 
-/* Spaces out headings and forms */
+/* Styles for main heading */
 h1{
-    margin-top: 1.5rem;
-    margin: 0 auto;
+    font-family: 'Kalam', cursive;
+    text-align: center;
+    color: #000;
+    margin-top: 0;
+    /* Smalls space below the heading */
+    margin-bottom: 0.5rem;
 }
 
-/* Tweaks buttons for consistency */
+/* Styles for subtitle paragraph */
+.subtitle{
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 2.5rem;
+    color: #666;
+}
+
+/* Styles for the section headings */
+h2{
+    color: #333;
+    /* Solid line below the heading for visual separation */
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+
+}
+
+/* Forms and Buttons */
+.form-section{
+    margin-bottom: 2rem;
+}
+
+/* Styles for the file inout fields */
+input[type = "text"]{
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* Styles for the custom buttons */
 .btn-custom{
-    background-color: #f3e3b7;
-    color: #052813;
+    background-color: #4A90E2;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    /* Gives the button rounded corners. */
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    /* Changes the cursor to a pointer on hover to indicate it's clickable */
+    cursor: pointer;
+    width: 100%;
+    /* Animates smoothly */
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.btn-custom:hover{
-    background-color: #f3e3b7;
+/* Styles for the custom button on hover */
+.btn-custom:hover:not(:disabled){
+    /* Darker blue on hover */
+    background-color: #357ABD;
+    /* Subtle lift effect on hover */
+    transform: translateY(-2px);
 }
 
-.file-name{
+/* Styles for the custom button when it's disabled */
+.btn-custom:disabled{
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Styles for the preview areas below the file inputs */
+.preview-area{
+    margin-top: 1rem;
     font-style: italic;
-    font-size: 0.9em;
+    color: #555;
+}
+
+.preview-area .file-name{
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.preview-area img{
+    max-width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ddd;
 }

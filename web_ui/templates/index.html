@@ -1,84 +1,76 @@
 <!--- Declares HTMLS document type -->
 <!DOCTYPE html>
-
-<!-- Root element of the page -->
- <html>
-
- <head>
+<html lang = "en">
+<head>
     <!--- Ensures correct character encoding -->
     <meta charset = "UTF-8">
 
     <!-- Text is shown on the browser tab -->
-     <title> Handwritten Notes UI</title>
+    <title>Handwritten Notes UI</title>
 
-    <!-- CSS -->
-    <link
-        rel = "stylesheet"
-        href = "{{ url_for('static', filename = 'css/style.css') }}">
- </head>
+    <link rel = "preconnect" href = "https://fonts.googleapis.com">
+    <link rel = "preconnect" href = "https://fonts.gstatic.com" crossorigin>
+    <link href = "https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Roboto:wght@400;700&display=swap" rel = "stylesheet">
 
-<!-- js -->
-<script src = "{{ url_for('static', filename = 'js/app.js')}}"></script>
-
-<!-- CSS -->
-<script src = "{{ url_for('static', filename = 'css/style.css')}}"></script>
+    <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/style.css') }}">
+</head>
 
 <body>
-    <div class = "container">
-        <h1> Uploading Handwriting Sample</h1>
+    <div class = "paper-container">
+        <h1>Handwriting Generator</h1>
+        <p class = "subtitle">Turn any transcript into "your" handwriting.</p>
 
-        <form 
-            action = "/upload_template"
-            method = "post"
-            enctype = "multipart/form-data"
-        >
-
-            <input 
-                type = "file"
-                name = "template"
-                accept = "image/*"
-                required
+        <div class = "form-selection">
+            <h2>1. Upload Handwriting Sample</h2>
+            <form 
+                action = "/upload_template"
+                method = "post"
+                enctype = "multipart/form-data"
             >
+                <input
+                    type = "file"
+                    name = "template"
+                    accept = "image/*"
+                    required
+                >
+                <button
+                    id = "segment-btn"
+                    class = "btn-custom"
+                    type = "submit"
+                >Segment</button>
+                <div
+                    id = "template_preview"
+                    class = "preview-area"
+                ></div>
+            </form>
+        </div>
 
-            <!-- Triggers form submission -->
-            <button 
-                id = "segment-btn"
-                class = "btn-custom"
-                type = "submit"
-                >Segment
-            </button>
-
-            <!-- Preview for filename and thumbnail -->
-            <div id = "template-preview"></div>
-        </form>
-
-        <h1>Upload Transcript</h1>
-
-        <form 
-            action = "/upload_transcript"
-            method = "post"
-            enctype = "multipart/form-data"
-        >
-
-            <input
-                type = "file"
-                name = "transcript"
-                accept = ".txt"
-                required
+        <div class = "form-section">
+            <h2>2. Upload Transcript</h2>
+            <form
+                action = "/upload_transcript"
+                method = "post"
+                enctype = "multipart/form_data"
             >
-
-            <!-- Triggers transcript upload -->
-            <button
-                id = "render-btn" 
-                class = "btn-custom"
-                type = "submit"
-                >Render
-            </button>
-
-            <!-- Preview for transcript filename -->
-            <div id = "transcript-preview"></div>
-        </form>
+                <input
+                    type = "file"
+                    name = "transcript"
+                    accept = ".txt"
+                    required
+                >
+                <button
+                    id = "render-btn"
+                    class = "btn-custom"
+                    type = "submit"
+                >Render</button>
+                <div
+                    id = "transcript-preview"
+                    class = "preview-area"
+                ></div>
+            </form>
+        </div>
     </div>
- </body>
- 
- </html>
+
+    <script src = "{{ url_for('static', filename = 'js/app.js') }}"></script>
+</body>
+</html>
