@@ -67,7 +67,7 @@ h2{
 }
 
 /* Styles for the file inout fields */
-input[type = "text"]{
+input[type = "file"]{
     width: 100%;
     margin-bottom: 1rem;
 }
