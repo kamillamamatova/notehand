@@ -67,20 +67,26 @@ def upload_transcript():
 
     # Builds the font
     subprocess.run(
-        ["fontforge", "-script", "build_font.py"],
+        ["fontforge", "-script", "../font_build/build_font.py"],
         cwd = os.path.join(PROJECT_ROOT, "font_build"),
-        check = True
-    )
-
-    # Renders the notes
-    subprocess.run(
-        ["python3", "render_handwritten_notes.py", transcript_path],
-        cwd = os.path.join(PROJECT_ROOT, "rendering"),
         check = True
     )
 
     # Grabs the generated PDF
     output_pdf = os.path.join(PROJECT_ROOT, "rendering", "output", "notes.pdf")
+    os.makedirs(os.path.dirname(output_pdf), exist_ok = True)
+
+    # Renders the notes
+    subprocess.run(
+        [
+            "python3",
+            os.path.join(PROJECT_ROOT, "rendering", "render_handwritten_notes.py"),
+            transcript_path,
+            "--output",
+            output_pdf
+        ],
+        check = True
+    )
 
     # Returns the generated pdf
     return send_file(output_pdf, as_attachement = True)
