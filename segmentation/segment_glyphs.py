@@ -10,7 +10,7 @@ NUM_COLS = 10
 MARGIN = 5 # To not accidently crop a letter
 
 # Loads the scanned template
-template_path = "segmentation/handwritten_template.jpg"
+template_path = "handwritten_template.jpg"
 img = cv2.imread(template_path, cv2.IMREAD_GRAYSCALE)
 if img is None:
     raise FileNotFoundError(f"Could not load {template_path}")
@@ -22,7 +22,7 @@ cell_width = width // NUM_COLS
 cell_height = height // NUM_ROWS
 
 # Creates output folder if it doesn't exist
-output_folder = "segmentation/glyph_images" # Each cropped letter will be saved here
+output_folder = "glyph_images" # Each cropped letter will be saved here
 os.makedirs(output_folder, exist_ok = True)
 
 # Loops over columns/rows to crop each glyph

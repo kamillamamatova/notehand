@@ -1,17 +1,15 @@
-# font_build/build_font.py
-
 import fontforge
 import os
 
-# --- Configuration ---
-GLYPH_MAP_PATH = "segmentation/glyph_map.txt"
-GLYPH_IMAGES_DIR = "segmentation/glyph_images/"
-OUTPUT_FONT_PATH = "font_build/MyHandwriting.ttf"
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__), os.pardir)
+
+# Configuration
+GLYPH_MAP_PATH = os.path.join(PROJECT_ROOT, "segmentation", "glyph_map.txt")
+GLYPH_IMAGES_DIR = os.path.join(PROJECT_ROOT, "segmentation", "glyph_images/")
+OUTPUT_FONT_PATH = os.path.join(PROJECT_ROOT, "font_build", "MyHandwriting.ttf")
 FONT_NAME = "MyHandwriting"
 FONT_FAMILY = "My Handwriting"
 FONT_WEIGHT = "Regular"
-
-# --- Main Script ---
 
 # Create a new, empty font
 font = fontforge.font()

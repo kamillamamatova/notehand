@@ -57,7 +57,7 @@ def upload_template():
 @app.route("/upload_transcript", methods = ["POST"])
 def upload_transcript():
     # Grabs the uploaded file from the form field named "transcript"
-    f = request.files("transcript")
+    f = request.files["transcript"]
 
     # Builds a safe path
     transcript_path = os.path.join(UPLOAD_FOLDER, "transcript.txt")
@@ -67,8 +67,7 @@ def upload_transcript():
 
     # Builds the font
     subprocess.run(
-        ["fontforge", "-script", "../font_build/build_font.py"],
-        cwd = os.path.join(PROJECT_ROOT, "font_build"),
+        ["fontforge", "-script", os.path.join(PROJECT_ROOT, "font_build", "build_font.put")],
         check = True
     )
 
