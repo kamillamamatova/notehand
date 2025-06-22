@@ -2,74 +2,74 @@
 
 import argparse
 import os
-import textwrap
-from PIL import Image, ImageDraw, ImageFont
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 
-# --- Configuration ---
-# Page and Font settings, as suggested in the project plan 
-FONT_PATH = "font_build/MyHandwriting.ttf"
-PAGE_WIDTH_PX = 2550  # 8.5 inches * 300 DPI
-PAGE_HEIGHT_PX = 3300 # 11 inches * 300 DPI
-MARGIN_PX = 150       # 0.5 inch margin * 300 DPI
-FONT_SIZE = 90
-LINE_SPACING = 30
+# Configuration
+# Page and font settings
+FONT_PATH = os.path.join(os.path.dirname(__file__), '..', 'font_build', 'MyHandwriting.ttf')
+FONT_NAME = "MyHandwriting"
+FONT_SIZE = 14
+LINE_HEIGHT = 18
+MARGIN_INCH = 0.75
 
-# --- Main Script ---
+# Main script
 
-def render_transcript(transcript_path, output_path):
+def render_transcript_to_pdf(transcript_path, output_path):
     """
-    Renders a text transcript to an image file using the custom handwriting font.
+    Renders a text transcript to a PDF file using the custom handwriting font
     """
-    # 1. Validate inputs
+    # Validate inputs
     if not os.path.exists(FONT_PATH):
         print(f"ERROR: Font file not found at '{FONT_PATH}'.")
-        print("Please run the build_font.py script first.")
+        print("Please run the font_build/build_font.py script first.")
         return
 
     if not os.path.exists(transcript_path):
         print(f"ERROR: Transcript file not found at '{transcript_path}'.")
         return
 
-    # 2. Load the transcript content
-    with open(transcript_path, "r") as f:
+    # Load the transcript content
+    with open(transcript_path, "r", encoding = "utf-8") as f:
         text_content = f.read()
 
-    # 3. Set up the canvas (the page)
-    # Create a new blank white image
-    img = Image.new('RGB', (PAGE_WIDTH_PX, PAGE_HEIGHT_PX), 'white')
-    draw = ImageDraw.Draw(img)
+    # Set up the page
+    page_width, page_height = letter
+    margin_px = MARGIN_INCH * 72 # Inches to points
+    c = canvas.Canvas(output_path, pagesize = letter)
 
     # Load the custom handwriting font
     try:
-        font = ImageFont.truetype(FONT_PATH, FONT_SIZE)
-    except IOError:
+        pdfmetrics.registerFont(TTFont(FONT_NAME, FONT_PATH))
+        c.setFont(FONT_NAME, FONT_SIZE)
+    except Exception as e:
         print(f"ERROR: Could not load font. Ensure '{FONT_PATH}' is a valid .ttf file.")
+        print(f"ReportLab Error: {e}")
         return
 
-    # 4. Wrap text to fit the page width 
-    # The textwrap library calculates where to break lines.
-    char_width, _ = font.getbbox("a")[2:] # Get approximate width of a character
-    chars_per_line = (PAGE_WIDTH_PX - 2 * MARGIN_PX) // char_width
-    wrapped_text = textwrap.fill(text_content, width=chars_per_line)
+    # Draw the text onto the PDF
+    # We start drawing at the top margin
+    text = c.beginText(margin_px, page_height - margin_px)
+    text.setFont(FONT_NAME, FONT_SIZE, leading = LINE_HEIGHT)
 
-    # 5. Draw the text onto the image
-    # We start drawing at the top margin.
-    y_position = MARGIN_PX
-    draw.text(
-        (MARGIN_PX, y_position),
-        wrapped_text,
-        font=font,
-        fill="black",
-        spacing=LINE_SPACING
-    )
+    # Processes lines to preserve paragraphs
+    lines = text_content.split('\n')
+    for line in lines:
+        # Handles wrapping long lines automatically
+        text.textLine(line)
 
-    # 6. Save the final image 
-    # Ensure output directory exists
+    c.drawText(text)
+
+    # 6. Save the PDF file 
+    c.save()
+
+    # Ensures the output directory exists
     output_dir = os.path.dirname(output_path)
     if output_dir:
         os.makedirs(output_dir, exist_ok=True)
     
-    img.save(output_path)
     print(f"Successfully rendered transcript to '{output_path}'")
 
 
@@ -88,8 +88,8 @@ if __name__ == "__main__":
         dest="output_path",
         type=str,
         required=True,
-        help="Path to save the output .png image."
+        help="Path to save the output .pdf file."
     )
 
     args = parser.parse_args()
-    render_transcript(args.transcript_path, args.output_path)
+    render_transcript_to_pdf(args.transcript_path, args.output_path)
