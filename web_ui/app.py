@@ -67,7 +67,7 @@ def upload_transcript():
 
     # Builds the font
     subprocess.run(
-        ["fontforge", "-script", os.path.join(PROJECT_ROOT, "font_build", "build_font.put")],
+        ["fontforge", "-script", os.path.join(PROJECT_ROOT, "font_build", "build_font.py")],
         check = True
     )
 
@@ -88,7 +88,7 @@ def upload_transcript():
     )
 
     # Returns the generated pdf
-    return send_file(output_pdf, as_attachement = True)
+    return send_file(output_pdf, as_attachment = True)
 
 @app.route("/glyph_images/<filename>")
 def glyph_image(filename):
