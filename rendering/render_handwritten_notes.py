@@ -31,6 +31,11 @@ def render_transcript_to_pdf(transcript_path, output_path):
         print(f"ERROR: Transcript file not found at '{transcript_path}'.")
         return
 
+    # Ensures the output directory exists before trying to save the file
+    output_dir = os.path.dirname(output_path)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+
     # Load the transcript content
     with open(transcript_path, "r", encoding = "utf-8") as f:
         text_content = f.read()
@@ -64,11 +69,6 @@ def render_transcript_to_pdf(transcript_path, output_path):
 
     # 6. Save the PDF file 
     c.save()
-
-    # Ensures the output directory exists
-    output_dir = os.path.dirname(output_path)
-    if output_dir:
-        os.makedirs(output_dir, exist_ok=True)
     
     print(f"Successfully rendered transcript to '{output_path}'")
 

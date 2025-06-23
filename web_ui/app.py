@@ -1,3 +1,5 @@
+# web_ui/app.py
+
 # request is to access incoming form data/files
 # redirect is to redirect the user to a different page
 # url_for is to generate URLs for the application
@@ -57,6 +59,9 @@ def upload_template():
 @app.route("/upload_transcript", methods = ["POST"])
 def upload_transcript():
     # Grabs the uploaded file from the form field named "transcript"
+    if "transcript" not in request.files or not request.files["transcript"].filename:
+        return "No transcript file provided in the request.", 400
+
     f = request.files["transcript"]
 
     # Builds a safe path
