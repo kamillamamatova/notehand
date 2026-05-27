@@ -1,7 +1,7 @@
 # Handwritten Notes Generator
 
 **Turn any transcript into “your” handwriting**—no manual tracing required.  
-Built with Python, OpenCV, FontForge & Pillow.
+Built with Python, OpenCV, FontForge & ReportLab.
 
 ---
 
@@ -13,8 +13,8 @@ We applied the CIRCLE framework to deliver a polished MVP and roadmap:
    Translate plain-text into lifelike handwriting, preserving stroke & slant.  
 2. **Identify**  
    Users: students, professionals, anyone wanting digital notes that feel personal.  
-3. **Report**  
-   Needs: easy sample upload, accurate style capture, flexible PNG/PDF export, privacy.  
+3. **Report**
+   Needs: easy sample upload, accurate style capture, flexible PDF export, privacy.  
 4. **Cut**  
    **MVP**: segmentation → font → single-page render  
    **Next**: multi-page, web UI  
@@ -40,7 +40,7 @@ We applied the CIRCLE framework to deliver a polished MVP and roadmap:
 2. **Font Assembly**  
    • Automated glyph import into a TrueType font with FontForge; delivered MyHandwriting.ttf.  
 3. **Rendering**  
-   • Typeset any transcript into PNG/PDF with Pillow; preserved line breaks & margins.  
+   • Typeset any transcript into PDF with ReportLab; preserved line breaks & margins.  
 
 ---
 
@@ -58,25 +58,22 @@ ls rendering/transcripts/
 - Languages: Python
 - CV: OpenCV
 - Font: FontForge (Python API)
-- Rendering: Pillow, ReportLab
+- Rendering: ReportLab
 - Future: Flask web UI, Docker
 
 ## How to Run
 
-1. **Segment:**
+1. **Segment** (from the project root):
     ```bash
-    cd segmentation
-    python3 segment_glyphs.py
+    python3 segmentation/segment_glyphs.py
     ```
-2. **Build font:**
+2. **Build font** (from the project root):
     ```bash
-    cd ../font_build
-    fontforge -script build_font.py
+    fontforge -script font_build/build_font.py
     ```
 3. **Render**
     ```bash
-    cd ../rendering
-    python3 render_handwritten_notes.py transcripts/short.txt
+    python3 rendering/render_handwritten_notes.py rendering/transcripts/short.txt --output out/short.pdf
     ```
 
 ## Authors and Credits

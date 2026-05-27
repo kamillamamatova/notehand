@@ -1,7 +1,7 @@
 import fontforge
 import os
 
-PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__), os.pardir)
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
 # Configuration
 GLYPH_MAP_PATH = os.path.join(PROJECT_ROOT, "segmentation", "glyph_map.txt")
