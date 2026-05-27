@@ -76,7 +76,7 @@ def render_transcript_to_pdf(transcript_path, output_path):
 if __name__ == "__main__":
     # Set up command-line argument parsing as specified in the project plan example 
     parser = argparse.ArgumentParser(
-        description="Render a text transcript into a handwritten-style PNG."
+        description="Render a text transcript into a handwritten-style PDF."
     )
     parser.add_argument(
         "transcript_path",
