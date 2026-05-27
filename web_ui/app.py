@@ -48,8 +48,7 @@ def upload_template():
 
     # Invokes our segmentation script to crop that image
     subprocess.run(
-        ["python3", "../segmentation/segment_glyphs.py"],
-        cwd = os.path.join(PROJECT_ROOT, "segmentation"),
+        ["python3", os.path.join(PROJECT_ROOT, "segmentation", "segment_glyphs.py")],
         check = True
     )
 
